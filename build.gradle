@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.14'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'nu.studer.jooq' version '8.0'
 }
 
 group = 'com.example'
@@ -17,15 +18,91 @@ configurations {
     }
 }
 
+ext {
+    set('jooqVersion', '3.18.4')
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    runtimeOnly 'com.h2database:h2'
+
+    // JOOQ
+    implementation "org.jooq:jooq:$jooqVersion"
+    runtimeOnly "org.jooq:jooq-meta:$jooqVersion"
+    runtimeOnly "org.jooq:jooq-codegen:$jooqVersion"
+
+    jooqGenerator "jakarta.xml.bind:jakarta.xml.bind-api:3.0.1"
+    jooqGenerator 'com.h2database:h2'
+}
+
+// https://github.com/etiennestuder/gradle-jooq-plugin/blob/main/example/use_groovy_dsl/build.gradle
+jooq {
+    version = '3.18.4'
+//    edition = JooqEdition.OSS
+
+    configurations {
+        main {
+            generationTool {
+                logging = org.jooq.meta.jaxb.Logging.WARN
+                // DataBase로 부터 Code를 생성하기 때문에? 미리 들어가 있어야 한다?
+                // 그렇기 때문에 H2로 설정을 하게 되면 스크립트를 읽어서라도 코드를 생성하게 만들어야 한다.
+                // 현재 설정으로는 파일을 찾지 못하고 있어서 진행이 불가능하다.
+                jdbc {
+                    driver = 'org.h2.Driver'
+//                    url = 'jdbc:h2:~/test;AUTO_SERVER=TRUE;INIT=RUNSCRIPT FROM \'classpath:schema.sql\''
+                    url = 'jdbc:h2:~/test;AUTO_SERVER=TRUE;'
+                    user = 'sa'
+                    password = ''
+                    properties {
+                        property {
+                            key = 'PAGE_SIZE'
+                            value = 2048
+                        }
+                    }
+                }
+                generator {
+                    name = 'org.jooq.codegen.DefaultGenerator'
+                    database {
+                        name = 'org.jooq.meta.h2.H2Database'
+//                        forcedTypes {
+//                            forcedType {
+//                                name = 'varchar'
+//                                includeExpression = '.*'
+//                                includeTypes = 'JSONB?'
+//                            }
+//                            forcedType {
+//                                name = 'varchar'
+//                                includeExpression = '.*'
+//                                includeTypes = 'INET'
+//                            }
+//                        }
+                    }
+                    generate {
+                        deprecated = false
+                        records = false
+                        immutablePojos = false
+                        fluentSetters = false
+                    }
+                    target {
+                        packageName = 'nu.studer.sample'
+                        directory = 'src/generated/jooq'
+                    }
+                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
+                }
+            }
+        }
+    }
 }
 
 tasks.named('test') {
