@@ -29,7 +29,7 @@ public class CheckConstraints extends TableImpl<Record> {
 
     /**
      * The reference instance of
-     * <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS</code>
+     * <code>information_schema.CHECK_CONSTRAINTS</code>
      */
     public static final CheckConstraints CHECK_CONSTRAINTS = new CheckConstraints();
 
@@ -43,38 +43,38 @@ public class CheckConstraints extends TableImpl<Record> {
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     * <code>information_schema.CHECK_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
-    public final TableField<Record, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     * <code>information_schema.CHECK_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
      */
-    public final TableField<Record, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS.CONSTRAINT_NAME</code>.
+     * <code>information_schema.CHECK_CONSTRAINTS.CONSTRAINT_NAME</code>.
      */
-    public final TableField<Record, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS.CHECK_CLAUSE</code>.
+     * <code>information_schema.CHECK_CONSTRAINTS.CHECK_CLAUSE</code>.
      */
-    public final TableField<Record, String> CHECK_CLAUSE = createField(DSL.name("CHECK_CLAUSE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CHECK_CLAUSE = createField(DSL.name("CHECK_CLAUSE"), SQLDataType.CLOB.nullable(false), this, "");
 
     private CheckConstraints(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private CheckConstraints(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS</code> table
+     * Create an aliased <code>information_schema.CHECK_CONSTRAINTS</code> table
      * reference
      */
     public CheckConstraints(String alias) {
@@ -82,7 +82,7 @@ public class CheckConstraints extends TableImpl<Record> {
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS</code> table
+     * Create an aliased <code>information_schema.CHECK_CONSTRAINTS</code> table
      * reference
      */
     public CheckConstraints(Name alias) {
@@ -90,7 +90,7 @@ public class CheckConstraints extends TableImpl<Record> {
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS</code> table
+     * Create a <code>information_schema.CHECK_CONSTRAINTS</code> table
      * reference
      */
     public CheckConstraints() {

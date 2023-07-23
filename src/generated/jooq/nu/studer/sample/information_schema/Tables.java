@@ -4,221 +4,487 @@
 package nu.studer.sample.information_schema;
 
 
+import nu.studer.sample.information_schema.tables.AdministrableRoleAuthorizations;
+import nu.studer.sample.information_schema.tables.ApplicableRoles;
+import nu.studer.sample.information_schema.tables.CharacterSets;
 import nu.studer.sample.information_schema.tables.CheckConstraints;
+import nu.studer.sample.information_schema.tables.CollationCharacterSetApplicability;
 import nu.studer.sample.information_schema.tables.Collations;
 import nu.studer.sample.information_schema.tables.ColumnPrivileges;
+import nu.studer.sample.information_schema.tables.ColumnStatistics;
 import nu.studer.sample.information_schema.tables.Columns;
-import nu.studer.sample.information_schema.tables.Constants;
-import nu.studer.sample.information_schema.tables.ConstraintColumnUsage;
-import nu.studer.sample.information_schema.tables.DomainConstraints;
-import nu.studer.sample.information_schema.tables.Domains;
-import nu.studer.sample.information_schema.tables.ElementTypes;
-import nu.studer.sample.information_schema.tables.EnumValues;
-import nu.studer.sample.information_schema.tables.Fields;
-import nu.studer.sample.information_schema.tables.InDoubt;
-import nu.studer.sample.information_schema.tables.IndexColumns;
-import nu.studer.sample.information_schema.tables.Indexes;
-import nu.studer.sample.information_schema.tables.InformationSchemaCatalogName;
+import nu.studer.sample.information_schema.tables.ColumnsExtensions;
+import nu.studer.sample.information_schema.tables.EnabledRoles;
+import nu.studer.sample.information_schema.tables.Engines;
+import nu.studer.sample.information_schema.tables.Events;
+import nu.studer.sample.information_schema.tables.Files;
+import nu.studer.sample.information_schema.tables.InnodbBufferPage;
+import nu.studer.sample.information_schema.tables.InnodbBufferPageLru;
+import nu.studer.sample.information_schema.tables.InnodbBufferPoolStats;
+import nu.studer.sample.information_schema.tables.InnodbCachedIndexes;
+import nu.studer.sample.information_schema.tables.InnodbCmp;
+import nu.studer.sample.information_schema.tables.InnodbCmpPerIndex;
+import nu.studer.sample.information_schema.tables.InnodbCmpPerIndexReset;
+import nu.studer.sample.information_schema.tables.InnodbCmpReset;
+import nu.studer.sample.information_schema.tables.InnodbCmpmem;
+import nu.studer.sample.information_schema.tables.InnodbCmpmemReset;
+import nu.studer.sample.information_schema.tables.InnodbColumns;
+import nu.studer.sample.information_schema.tables.InnodbDatafiles;
+import nu.studer.sample.information_schema.tables.InnodbFields;
+import nu.studer.sample.information_schema.tables.InnodbForeign;
+import nu.studer.sample.information_schema.tables.InnodbForeignCols;
+import nu.studer.sample.information_schema.tables.InnodbFtBeingDeleted;
+import nu.studer.sample.information_schema.tables.InnodbFtConfig;
+import nu.studer.sample.information_schema.tables.InnodbFtDefaultStopword;
+import nu.studer.sample.information_schema.tables.InnodbFtDeleted;
+import nu.studer.sample.information_schema.tables.InnodbFtIndexCache;
+import nu.studer.sample.information_schema.tables.InnodbFtIndexTable;
+import nu.studer.sample.information_schema.tables.InnodbIndexes;
+import nu.studer.sample.information_schema.tables.InnodbMetrics;
+import nu.studer.sample.information_schema.tables.InnodbSessionTempTablespaces;
+import nu.studer.sample.information_schema.tables.InnodbTables;
+import nu.studer.sample.information_schema.tables.InnodbTablespaces;
+import nu.studer.sample.information_schema.tables.InnodbTablespacesBrief;
+import nu.studer.sample.information_schema.tables.InnodbTablestats;
+import nu.studer.sample.information_schema.tables.InnodbTempTableInfo;
+import nu.studer.sample.information_schema.tables.InnodbTrx;
+import nu.studer.sample.information_schema.tables.InnodbVirtual;
 import nu.studer.sample.information_schema.tables.KeyColumnUsage;
-import nu.studer.sample.information_schema.tables.Locks;
+import nu.studer.sample.information_schema.tables.Keywords;
+import nu.studer.sample.information_schema.tables.OptimizerTrace;
 import nu.studer.sample.information_schema.tables.Parameters;
-import nu.studer.sample.information_schema.tables.QueryStatistics;
+import nu.studer.sample.information_schema.tables.Partitions;
+import nu.studer.sample.information_schema.tables.Plugins;
+import nu.studer.sample.information_schema.tables.Processlist;
+import nu.studer.sample.information_schema.tables.Profiling;
 import nu.studer.sample.information_schema.tables.ReferentialConstraints;
-import nu.studer.sample.information_schema.tables.Rights;
-import nu.studer.sample.information_schema.tables.Roles;
+import nu.studer.sample.information_schema.tables.ResourceGroups;
+import nu.studer.sample.information_schema.tables.RoleColumnGrants;
+import nu.studer.sample.information_schema.tables.RoleRoutineGrants;
+import nu.studer.sample.information_schema.tables.RoleTableGrants;
 import nu.studer.sample.information_schema.tables.Routines;
+import nu.studer.sample.information_schema.tables.SchemaPrivileges;
 import nu.studer.sample.information_schema.tables.Schemata;
-import nu.studer.sample.information_schema.tables.Sequences;
-import nu.studer.sample.information_schema.tables.SessionState;
-import nu.studer.sample.information_schema.tables.Sessions;
-import nu.studer.sample.information_schema.tables.Settings;
-import nu.studer.sample.information_schema.tables.Synonyms;
+import nu.studer.sample.information_schema.tables.SchemataExtensions;
+import nu.studer.sample.information_schema.tables.StGeometryColumns;
+import nu.studer.sample.information_schema.tables.StSpatialReferenceSystems;
+import nu.studer.sample.information_schema.tables.StUnitsOfMeasure;
+import nu.studer.sample.information_schema.tables.Statistics;
 import nu.studer.sample.information_schema.tables.TableConstraints;
+import nu.studer.sample.information_schema.tables.TableConstraintsExtensions;
 import nu.studer.sample.information_schema.tables.TablePrivileges;
+import nu.studer.sample.information_schema.tables.TablesExtensions;
+import nu.studer.sample.information_schema.tables.Tablespaces;
+import nu.studer.sample.information_schema.tables.TablespacesExtensions;
 import nu.studer.sample.information_schema.tables.Triggers;
-import nu.studer.sample.information_schema.tables.Users;
+import nu.studer.sample.information_schema.tables.UserAttributes;
+import nu.studer.sample.information_schema.tables.UserPrivileges;
+import nu.studer.sample.information_schema.tables.ViewRoutineUsage;
+import nu.studer.sample.information_schema.tables.ViewTableUsage;
 import nu.studer.sample.information_schema.tables.Views;
 
 
 /**
- * Convenience access to all tables in INFORMATION_SCHEMA.
+ * Convenience access to all tables in information_schema.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS</code>.
+     * The table
+     * <code>information_schema.ADMINISTRABLE_ROLE_AUTHORIZATIONS</code>.
+     */
+    public static final AdministrableRoleAuthorizations ADMINISTRABLE_ROLE_AUTHORIZATIONS = AdministrableRoleAuthorizations.ADMINISTRABLE_ROLE_AUTHORIZATIONS;
+
+    /**
+     * The table <code>information_schema.APPLICABLE_ROLES</code>.
+     */
+    public static final ApplicableRoles APPLICABLE_ROLES = ApplicableRoles.APPLICABLE_ROLES;
+
+    /**
+     * The table <code>information_schema.CHARACTER_SETS</code>.
+     */
+    public static final CharacterSets CHARACTER_SETS = CharacterSets.CHARACTER_SETS;
+
+    /**
+     * The table <code>information_schema.CHECK_CONSTRAINTS</code>.
      */
     public static final CheckConstraints CHECK_CONSTRAINTS = CheckConstraints.CHECK_CONSTRAINTS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.COLLATIONS</code>.
+     * The table
+     * <code>information_schema.COLLATION_CHARACTER_SET_APPLICABILITY</code>.
+     */
+    public static final CollationCharacterSetApplicability COLLATION_CHARACTER_SET_APPLICABILITY = CollationCharacterSetApplicability.COLLATION_CHARACTER_SET_APPLICABILITY;
+
+    /**
+     * The table <code>information_schema.COLLATIONS</code>.
      */
     public static final Collations COLLATIONS = Collations.COLLATIONS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES</code>.
+     * The table <code>information_schema.COLUMN_PRIVILEGES</code>.
      */
     public static final ColumnPrivileges COLUMN_PRIVILEGES = ColumnPrivileges.COLUMN_PRIVILEGES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.COLUMNS</code>.
+     * The table <code>information_schema.COLUMN_STATISTICS</code>.
+     */
+    public static final ColumnStatistics COLUMN_STATISTICS = ColumnStatistics.COLUMN_STATISTICS;
+
+    /**
+     * The table <code>information_schema.COLUMNS</code>.
      */
     public static final Columns COLUMNS = Columns.COLUMNS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CONSTANTS</code>.
+     * The table <code>information_schema.COLUMNS_EXTENSIONS</code>.
      */
-    public static final Constants CONSTANTS = Constants.CONSTANTS;
+    public static final ColumnsExtensions COLUMNS_EXTENSIONS = ColumnsExtensions.COLUMNS_EXTENSIONS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE</code>.
+     * The table <code>information_schema.ENABLED_ROLES</code>.
      */
-    public static final ConstraintColumnUsage CONSTRAINT_COLUMN_USAGE = ConstraintColumnUsage.CONSTRAINT_COLUMN_USAGE;
+    public static final EnabledRoles ENABLED_ROLES = EnabledRoles.ENABLED_ROLES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.DOMAIN_CONSTRAINTS</code>.
+     * The table <code>information_schema.ENGINES</code>.
      */
-    public static final DomainConstraints DOMAIN_CONSTRAINTS = DomainConstraints.DOMAIN_CONSTRAINTS;
+    public static final Engines ENGINES = Engines.ENGINES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.DOMAINS</code>.
+     * The table <code>information_schema.EVENTS</code>.
      */
-    public static final Domains DOMAINS = Domains.DOMAINS;
+    public static final Events EVENTS = Events.EVENTS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.ELEMENT_TYPES</code>.
+     * The table <code>information_schema.FILES</code>.
      */
-    public static final ElementTypes ELEMENT_TYPES = ElementTypes.ELEMENT_TYPES;
+    public static final Files FILES = Files.FILES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.ENUM_VALUES</code>.
+     * The table <code>information_schema.INNODB_BUFFER_PAGE</code>.
      */
-    public static final EnumValues ENUM_VALUES = EnumValues.ENUM_VALUES;
+    public static final InnodbBufferPage INNODB_BUFFER_PAGE = InnodbBufferPage.INNODB_BUFFER_PAGE;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.FIELDS</code>.
+     * The table <code>information_schema.INNODB_BUFFER_PAGE_LRU</code>.
      */
-    public static final Fields FIELDS = Fields.FIELDS;
+    public static final InnodbBufferPageLru INNODB_BUFFER_PAGE_LRU = InnodbBufferPageLru.INNODB_BUFFER_PAGE_LRU;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.IN_DOUBT</code>.
+     * The table <code>information_schema.INNODB_BUFFER_POOL_STATS</code>.
      */
-    public static final InDoubt IN_DOUBT = InDoubt.IN_DOUBT;
+    public static final InnodbBufferPoolStats INNODB_BUFFER_POOL_STATS = InnodbBufferPoolStats.INNODB_BUFFER_POOL_STATS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.INDEX_COLUMNS</code>.
+     * The table <code>information_schema.INNODB_CACHED_INDEXES</code>.
      */
-    public static final IndexColumns INDEX_COLUMNS = IndexColumns.INDEX_COLUMNS;
+    public static final InnodbCachedIndexes INNODB_CACHED_INDEXES = InnodbCachedIndexes.INNODB_CACHED_INDEXES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.INDEXES</code>.
+     * The table <code>information_schema.INNODB_CMP</code>.
      */
-    public static final Indexes INDEXES = Indexes.INDEXES;
+    public static final InnodbCmp INNODB_CMP = InnodbCmp.INNODB_CMP;
+
+    /**
+     * The table <code>information_schema.INNODB_CMP_PER_INDEX</code>.
+     */
+    public static final InnodbCmpPerIndex INNODB_CMP_PER_INDEX = InnodbCmpPerIndex.INNODB_CMP_PER_INDEX;
+
+    /**
+     * The table <code>information_schema.INNODB_CMP_PER_INDEX_RESET</code>.
+     */
+    public static final InnodbCmpPerIndexReset INNODB_CMP_PER_INDEX_RESET = InnodbCmpPerIndexReset.INNODB_CMP_PER_INDEX_RESET;
+
+    /**
+     * The table <code>information_schema.INNODB_CMP_RESET</code>.
+     */
+    public static final InnodbCmpReset INNODB_CMP_RESET = InnodbCmpReset.INNODB_CMP_RESET;
+
+    /**
+     * The table <code>information_schema.INNODB_CMPMEM</code>.
+     */
+    public static final InnodbCmpmem INNODB_CMPMEM = InnodbCmpmem.INNODB_CMPMEM;
+
+    /**
+     * The table <code>information_schema.INNODB_CMPMEM_RESET</code>.
+     */
+    public static final InnodbCmpmemReset INNODB_CMPMEM_RESET = InnodbCmpmemReset.INNODB_CMPMEM_RESET;
+
+    /**
+     * The table <code>information_schema.INNODB_COLUMNS</code>.
+     */
+    public static final InnodbColumns INNODB_COLUMNS = InnodbColumns.INNODB_COLUMNS;
+
+    /**
+     * The table <code>information_schema.INNODB_DATAFILES</code>.
+     */
+    public static final InnodbDatafiles INNODB_DATAFILES = InnodbDatafiles.INNODB_DATAFILES;
+
+    /**
+     * The table <code>information_schema.INNODB_FIELDS</code>.
+     */
+    public static final InnodbFields INNODB_FIELDS = InnodbFields.INNODB_FIELDS;
+
+    /**
+     * The table <code>information_schema.INNODB_FOREIGN</code>.
+     */
+    public static final InnodbForeign INNODB_FOREIGN = InnodbForeign.INNODB_FOREIGN;
+
+    /**
+     * The table <code>information_schema.INNODB_FOREIGN_COLS</code>.
+     */
+    public static final InnodbForeignCols INNODB_FOREIGN_COLS = InnodbForeignCols.INNODB_FOREIGN_COLS;
+
+    /**
+     * The table <code>information_schema.INNODB_FT_BEING_DELETED</code>.
+     */
+    public static final InnodbFtBeingDeleted INNODB_FT_BEING_DELETED = InnodbFtBeingDeleted.INNODB_FT_BEING_DELETED;
+
+    /**
+     * The table <code>information_schema.INNODB_FT_CONFIG</code>.
+     */
+    public static final InnodbFtConfig INNODB_FT_CONFIG = InnodbFtConfig.INNODB_FT_CONFIG;
+
+    /**
+     * The table <code>information_schema.INNODB_FT_DEFAULT_STOPWORD</code>.
+     */
+    public static final InnodbFtDefaultStopword INNODB_FT_DEFAULT_STOPWORD = InnodbFtDefaultStopword.INNODB_FT_DEFAULT_STOPWORD;
+
+    /**
+     * The table <code>information_schema.INNODB_FT_DELETED</code>.
+     */
+    public static final InnodbFtDeleted INNODB_FT_DELETED = InnodbFtDeleted.INNODB_FT_DELETED;
+
+    /**
+     * The table <code>information_schema.INNODB_FT_INDEX_CACHE</code>.
+     */
+    public static final InnodbFtIndexCache INNODB_FT_INDEX_CACHE = InnodbFtIndexCache.INNODB_FT_INDEX_CACHE;
+
+    /**
+     * The table <code>information_schema.INNODB_FT_INDEX_TABLE</code>.
+     */
+    public static final InnodbFtIndexTable INNODB_FT_INDEX_TABLE = InnodbFtIndexTable.INNODB_FT_INDEX_TABLE;
+
+    /**
+     * The table <code>information_schema.INNODB_INDEXES</code>.
+     */
+    public static final InnodbIndexes INNODB_INDEXES = InnodbIndexes.INNODB_INDEXES;
+
+    /**
+     * The table <code>information_schema.INNODB_METRICS</code>.
+     */
+    public static final InnodbMetrics INNODB_METRICS = InnodbMetrics.INNODB_METRICS;
 
     /**
      * The table
-     * <code>INFORMATION_SCHEMA.INFORMATION_SCHEMA_CATALOG_NAME</code>.
+     * <code>information_schema.INNODB_SESSION_TEMP_TABLESPACES</code>.
      */
-    public static final InformationSchemaCatalogName INFORMATION_SCHEMA_CATALOG_NAME = InformationSchemaCatalogName.INFORMATION_SCHEMA_CATALOG_NAME;
+    public static final InnodbSessionTempTablespaces INNODB_SESSION_TEMP_TABLESPACES = InnodbSessionTempTablespaces.INNODB_SESSION_TEMP_TABLESPACES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE</code>.
+     * The table <code>information_schema.INNODB_TABLES</code>.
+     */
+    public static final InnodbTables INNODB_TABLES = InnodbTables.INNODB_TABLES;
+
+    /**
+     * The table <code>information_schema.INNODB_TABLESPACES</code>.
+     */
+    public static final InnodbTablespaces INNODB_TABLESPACES = InnodbTablespaces.INNODB_TABLESPACES;
+
+    /**
+     * The table <code>information_schema.INNODB_TABLESPACES_BRIEF</code>.
+     */
+    public static final InnodbTablespacesBrief INNODB_TABLESPACES_BRIEF = InnodbTablespacesBrief.INNODB_TABLESPACES_BRIEF;
+
+    /**
+     * The table <code>information_schema.INNODB_TABLESTATS</code>.
+     */
+    public static final InnodbTablestats INNODB_TABLESTATS = InnodbTablestats.INNODB_TABLESTATS;
+
+    /**
+     * The table <code>information_schema.INNODB_TEMP_TABLE_INFO</code>.
+     */
+    public static final InnodbTempTableInfo INNODB_TEMP_TABLE_INFO = InnodbTempTableInfo.INNODB_TEMP_TABLE_INFO;
+
+    /**
+     * The table <code>information_schema.INNODB_TRX</code>.
+     */
+    public static final InnodbTrx INNODB_TRX = InnodbTrx.INNODB_TRX;
+
+    /**
+     * The table <code>information_schema.INNODB_VIRTUAL</code>.
+     */
+    public static final InnodbVirtual INNODB_VIRTUAL = InnodbVirtual.INNODB_VIRTUAL;
+
+    /**
+     * The table <code>information_schema.KEY_COLUMN_USAGE</code>.
      */
     public static final KeyColumnUsage KEY_COLUMN_USAGE = KeyColumnUsage.KEY_COLUMN_USAGE;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.LOCKS</code>.
+     * The table <code>information_schema.KEYWORDS</code>.
      */
-    public static final Locks LOCKS = Locks.LOCKS;
+    public static final Keywords KEYWORDS = Keywords.KEYWORDS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.PARAMETERS</code>.
+     * The table <code>information_schema.OPTIMIZER_TRACE</code>.
+     */
+    public static final OptimizerTrace OPTIMIZER_TRACE = OptimizerTrace.OPTIMIZER_TRACE;
+
+    /**
+     * The table <code>information_schema.PARAMETERS</code>.
      */
     public static final Parameters PARAMETERS = Parameters.PARAMETERS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code>.
+     * The table <code>information_schema.PARTITIONS</code>.
      */
-    public static final QueryStatistics QUERY_STATISTICS = QueryStatistics.QUERY_STATISTICS;
+    public static final Partitions PARTITIONS = Partitions.PARTITIONS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS</code>.
+     * The table <code>information_schema.PLUGINS</code>.
+     */
+    public static final Plugins PLUGINS = Plugins.PLUGINS;
+
+    /**
+     * The table <code>information_schema.PROCESSLIST</code>.
+     */
+    public static final Processlist PROCESSLIST = Processlist.PROCESSLIST;
+
+    /**
+     * The table <code>information_schema.PROFILING</code>.
+     */
+    public static final Profiling PROFILING = Profiling.PROFILING;
+
+    /**
+     * The table <code>information_schema.REFERENTIAL_CONSTRAINTS</code>.
      */
     public static final ReferentialConstraints REFERENTIAL_CONSTRAINTS = ReferentialConstraints.REFERENTIAL_CONSTRAINTS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.RIGHTS</code>.
+     * The table <code>information_schema.RESOURCE_GROUPS</code>.
      */
-    public static final Rights RIGHTS = Rights.RIGHTS;
+    public static final ResourceGroups RESOURCE_GROUPS = ResourceGroups.RESOURCE_GROUPS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.ROLES</code>.
+     * The table <code>information_schema.ROLE_COLUMN_GRANTS</code>.
      */
-    public static final Roles ROLES = Roles.ROLES;
+    public static final RoleColumnGrants ROLE_COLUMN_GRANTS = RoleColumnGrants.ROLE_COLUMN_GRANTS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.ROUTINES</code>.
+     * The table <code>information_schema.ROLE_ROUTINE_GRANTS</code>.
+     */
+    public static final RoleRoutineGrants ROLE_ROUTINE_GRANTS = RoleRoutineGrants.ROLE_ROUTINE_GRANTS;
+
+    /**
+     * The table <code>information_schema.ROLE_TABLE_GRANTS</code>.
+     */
+    public static final RoleTableGrants ROLE_TABLE_GRANTS = RoleTableGrants.ROLE_TABLE_GRANTS;
+
+    /**
+     * The table <code>information_schema.ROUTINES</code>.
      */
     public static final Routines ROUTINES = Routines.ROUTINES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.SCHEMATA</code>.
+     * The table <code>information_schema.SCHEMA_PRIVILEGES</code>.
+     */
+    public static final SchemaPrivileges SCHEMA_PRIVILEGES = SchemaPrivileges.SCHEMA_PRIVILEGES;
+
+    /**
+     * The table <code>information_schema.SCHEMATA</code>.
      */
     public static final Schemata SCHEMATA = Schemata.SCHEMATA;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.SEQUENCES</code>.
+     * The table <code>information_schema.SCHEMATA_EXTENSIONS</code>.
      */
-    public static final Sequences SEQUENCES = Sequences.SEQUENCES;
+    public static final SchemataExtensions SCHEMATA_EXTENSIONS = SchemataExtensions.SCHEMATA_EXTENSIONS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.SESSION_STATE</code>.
+     * The table <code>information_schema.ST_GEOMETRY_COLUMNS</code>.
      */
-    public static final SessionState SESSION_STATE = SessionState.SESSION_STATE;
+    public static final StGeometryColumns ST_GEOMETRY_COLUMNS = StGeometryColumns.ST_GEOMETRY_COLUMNS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.SESSIONS</code>.
+     * The table <code>information_schema.ST_SPATIAL_REFERENCE_SYSTEMS</code>.
      */
-    public static final Sessions SESSIONS = Sessions.SESSIONS;
+    public static final StSpatialReferenceSystems ST_SPATIAL_REFERENCE_SYSTEMS = StSpatialReferenceSystems.ST_SPATIAL_REFERENCE_SYSTEMS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.SETTINGS</code>.
+     * The table <code>information_schema.ST_UNITS_OF_MEASURE</code>.
      */
-    public static final Settings SETTINGS = Settings.SETTINGS;
+    public static final StUnitsOfMeasure ST_UNITS_OF_MEASURE = StUnitsOfMeasure.ST_UNITS_OF_MEASURE;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.SYNONYMS</code>.
+     * The table <code>information_schema.STATISTICS</code>.
      */
-    public static final Synonyms SYNONYMS = Synonyms.SYNONYMS;
+    public static final Statistics STATISTICS = Statistics.STATISTICS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS</code>.
+     * The table <code>information_schema.TABLE_CONSTRAINTS</code>.
      */
     public static final TableConstraints TABLE_CONSTRAINTS = TableConstraints.TABLE_CONSTRAINTS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code>.
+     * The table <code>information_schema.TABLE_CONSTRAINTS_EXTENSIONS</code>.
+     */
+    public static final TableConstraintsExtensions TABLE_CONSTRAINTS_EXTENSIONS = TableConstraintsExtensions.TABLE_CONSTRAINTS_EXTENSIONS;
+
+    /**
+     * The table <code>information_schema.TABLE_PRIVILEGES</code>.
      */
     public static final TablePrivileges TABLE_PRIVILEGES = TablePrivileges.TABLE_PRIVILEGES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.TABLES</code>.
+     * The table <code>information_schema.TABLES</code>.
      */
     public static final nu.studer.sample.information_schema.tables.Tables TABLES = nu.studer.sample.information_schema.tables.Tables.TABLES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.TRIGGERS</code>.
+     * The table <code>information_schema.TABLES_EXTENSIONS</code>.
+     */
+    public static final TablesExtensions TABLES_EXTENSIONS = TablesExtensions.TABLES_EXTENSIONS;
+
+    /**
+     * The table <code>information_schema.TABLESPACES</code>.
+     */
+    public static final Tablespaces TABLESPACES = Tablespaces.TABLESPACES;
+
+    /**
+     * The table <code>information_schema.TABLESPACES_EXTENSIONS</code>.
+     */
+    public static final TablespacesExtensions TABLESPACES_EXTENSIONS = TablespacesExtensions.TABLESPACES_EXTENSIONS;
+
+    /**
+     * The table <code>information_schema.TRIGGERS</code>.
      */
     public static final Triggers TRIGGERS = Triggers.TRIGGERS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.USERS</code>.
+     * The table <code>information_schema.USER_ATTRIBUTES</code>.
      */
-    public static final Users USERS = Users.USERS;
+    public static final UserAttributes USER_ATTRIBUTES = UserAttributes.USER_ATTRIBUTES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.VIEWS</code>.
+     * The table <code>information_schema.USER_PRIVILEGES</code>.
+     */
+    public static final UserPrivileges USER_PRIVILEGES = UserPrivileges.USER_PRIVILEGES;
+
+    /**
+     * The table <code>information_schema.VIEW_ROUTINE_USAGE</code>.
+     */
+    public static final ViewRoutineUsage VIEW_ROUTINE_USAGE = ViewRoutineUsage.VIEW_ROUTINE_USAGE;
+
+    /**
+     * The table <code>information_schema.VIEW_TABLE_USAGE</code>.
+     */
+    public static final ViewTableUsage VIEW_TABLE_USAGE = ViewTableUsage.VIEW_TABLE_USAGE;
+
+    /**
+     * The table <code>information_schema.VIEWS</code>.
      */
     public static final Views VIEWS = Views.VIEWS;
 }

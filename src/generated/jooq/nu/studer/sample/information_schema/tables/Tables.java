@@ -4,7 +4,11 @@
 package nu.studer.sample.information_schema.tables;
 
 
+import java.time.LocalDateTime;
+
 import nu.studer.sample.information_schema.InformationSchema;
+import nu.studer.sample.information_schema.enums.TablesRowFormat;
+import nu.studer.sample.information_schema.enums.TablesTableType;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -17,6 +21,7 @@ import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
+import org.jooq.types.ULong;
 
 
 /**
@@ -28,7 +33,7 @@ public class Tables extends TableImpl<Record> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.TABLES</code>
+     * The reference instance of <code>information_schema.TABLES</code>
      */
     public static final Tables TABLES = new Tables();
 
@@ -41,84 +46,134 @@ public class Tables extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_CATALOG</code>.
+     * The column <code>information_schema.TABLES.TABLE_CATALOG</code>.
      */
-    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA</code>.
+     * The column <code>information_schema.TABLES.TABLE_SCHEMA</code>.
      */
-    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_NAME</code>.
+     * The column <code>information_schema.TABLES.TABLE_NAME</code>.
      */
-    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_TYPE</code>.
+     * The column <code>information_schema.TABLES.TABLE_TYPE</code>.
      */
-    public final TableField<Record, String> TABLE_TYPE = createField(DSL.name("TABLE_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, TablesTableType> TABLE_TYPE = createField(DSL.name("TABLE_TYPE"), SQLDataType.VARCHAR(11).nullable(false).asEnumDataType(nu.studer.sample.information_schema.enums.TablesTableType.class), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.IS_INSERTABLE_INTO</code>.
+     * The column <code>information_schema.TABLES.ENGINE</code>.
      */
-    public final TableField<Record, String> IS_INSERTABLE_INTO = createField(DSL.name("IS_INSERTABLE_INTO"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> ENGINE = createField(DSL.name("ENGINE"), SQLDataType.VARCHAR(64), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.COMMIT_ACTION</code>.
+     * The column <code>information_schema.TABLES.VERSION</code>.
      */
-    public final TableField<Record, String> COMMIT_ACTION = createField(DSL.name("COMMIT_ACTION"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, Integer> VERSION = createField(DSL.name("VERSION"), SQLDataType.INTEGER, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.STORAGE_TYPE</code>.
+     * The column <code>information_schema.TABLES.ROW_FORMAT</code>.
      */
-    public final TableField<Record, String> STORAGE_TYPE = createField(DSL.name("STORAGE_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, TablesRowFormat> ROW_FORMAT = createField(DSL.name("ROW_FORMAT"), SQLDataType.VARCHAR(10).asEnumDataType(nu.studer.sample.information_schema.enums.TablesRowFormat.class), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.REMARKS</code>.
+     * The column <code>information_schema.TABLES.TABLE_ROWS</code>.
      */
-    public final TableField<Record, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, ULong> TABLE_ROWS = createField(DSL.name("TABLE_ROWS"), SQLDataType.BIGINTUNSIGNED, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.LAST_MODIFICATION</code>.
+     * The column <code>information_schema.TABLES.AVG_ROW_LENGTH</code>.
      */
-    public final TableField<Record, Long> LAST_MODIFICATION = createField(DSL.name("LAST_MODIFICATION"), SQLDataType.BIGINT, this, "");
+    public final TableField<Record, ULong> AVG_ROW_LENGTH = createField(DSL.name("AVG_ROW_LENGTH"), SQLDataType.BIGINTUNSIGNED, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_CLASS</code>.
+     * The column <code>information_schema.TABLES.DATA_LENGTH</code>.
      */
-    public final TableField<Record, String> TABLE_CLASS = createField(DSL.name("TABLE_CLASS"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, ULong> DATA_LENGTH = createField(DSL.name("DATA_LENGTH"), SQLDataType.BIGINTUNSIGNED, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.ROW_COUNT_ESTIMATE</code>.
+     * The column <code>information_schema.TABLES.MAX_DATA_LENGTH</code>.
      */
-    public final TableField<Record, Long> ROW_COUNT_ESTIMATE = createField(DSL.name("ROW_COUNT_ESTIMATE"), SQLDataType.BIGINT, this, "");
+    public final TableField<Record, ULong> MAX_DATA_LENGTH = createField(DSL.name("MAX_DATA_LENGTH"), SQLDataType.BIGINTUNSIGNED, this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.INDEX_LENGTH</code>.
+     */
+    public final TableField<Record, ULong> INDEX_LENGTH = createField(DSL.name("INDEX_LENGTH"), SQLDataType.BIGINTUNSIGNED, this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.DATA_FREE</code>.
+     */
+    public final TableField<Record, ULong> DATA_FREE = createField(DSL.name("DATA_FREE"), SQLDataType.BIGINTUNSIGNED, this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.AUTO_INCREMENT</code>.
+     */
+    public final TableField<Record, ULong> AUTO_INCREMENT = createField(DSL.name("AUTO_INCREMENT"), SQLDataType.BIGINTUNSIGNED, this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.CREATE_TIME</code>.
+     */
+    public final TableField<Record, LocalDateTime> CREATE_TIME = createField(DSL.name("CREATE_TIME"), SQLDataType.LOCALDATETIME(0).nullable(false), this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.UPDATE_TIME</code>.
+     */
+    public final TableField<Record, LocalDateTime> UPDATE_TIME = createField(DSL.name("UPDATE_TIME"), SQLDataType.LOCALDATETIME(0), this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.CHECK_TIME</code>.
+     */
+    public final TableField<Record, LocalDateTime> CHECK_TIME = createField(DSL.name("CHECK_TIME"), SQLDataType.LOCALDATETIME(0), this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.TABLE_COLLATION</code>.
+     */
+    public final TableField<Record, String> TABLE_COLLATION = createField(DSL.name("TABLE_COLLATION"), SQLDataType.VARCHAR(64), this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.CHECKSUM</code>.
+     */
+    public final TableField<Record, Long> CHECKSUM = createField(DSL.name("CHECKSUM"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.CREATE_OPTIONS</code>.
+     */
+    public final TableField<Record, String> CREATE_OPTIONS = createField(DSL.name("CREATE_OPTIONS"), SQLDataType.VARCHAR(256), this, "");
+
+    /**
+     * The column <code>information_schema.TABLES.TABLE_COMMENT</code>.
+     */
+    public final TableField<Record, String> TABLE_COMMENT = createField(DSL.name("TABLE_COMMENT"), SQLDataType.CLOB, this, "");
 
     private Tables(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private Tables(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TABLES</code> table reference
+     * Create an aliased <code>information_schema.TABLES</code> table reference
      */
     public Tables(String alias) {
         this(DSL.name(alias), TABLES);
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TABLES</code> table reference
+     * Create an aliased <code>information_schema.TABLES</code> table reference
      */
     public Tables(Name alias) {
         this(alias, TABLES);
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.TABLES</code> table reference
+     * Create a <code>information_schema.TABLES</code> table reference
      */
     public Tables() {
         this(DSL.name("TABLES"), null);

@@ -4,7 +4,11 @@
 package nu.studer.sample.information_schema.tables;
 
 
+import java.time.LocalDateTime;
+
 import nu.studer.sample.information_schema.InformationSchema;
+import nu.studer.sample.information_schema.enums.TriggersActionTiming;
+import nu.studer.sample.information_schema.enums.TriggersEventManipulation;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -17,6 +21,7 @@ import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
+import org.jooq.types.UInteger;
 
 
 /**
@@ -28,7 +33,7 @@ public class Triggers extends TableImpl<Record> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.TRIGGERS</code>
+     * The reference instance of <code>information_schema.TRIGGERS</code>
      */
     public static final Triggers TRIGGERS = new Triggers();
 
@@ -41,85 +46,129 @@ public class Triggers extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_CATALOG</code>.
+     * The column <code>information_schema.TRIGGERS.TRIGGER_CATALOG</code>.
      */
-    public final TableField<Record, String> TRIGGER_CATALOG = createField(DSL.name("TRIGGER_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TRIGGER_CATALOG = createField(DSL.name("TRIGGER_CATALOG"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_SCHEMA</code>.
+     * The column <code>information_schema.TRIGGERS.TRIGGER_SCHEMA</code>.
      */
-    public final TableField<Record, String> TRIGGER_SCHEMA = createField(DSL.name("TRIGGER_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TRIGGER_SCHEMA = createField(DSL.name("TRIGGER_SCHEMA"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_NAME</code>.
+     * The column <code>information_schema.TRIGGERS.TRIGGER_NAME</code>.
      */
-    public final TableField<Record, String> TRIGGER_NAME = createField(DSL.name("TRIGGER_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TRIGGER_NAME = createField(DSL.name("TRIGGER_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_MANIPULATION</code>.
+     * The column <code>information_schema.TRIGGERS.EVENT_MANIPULATION</code>.
      */
-    public final TableField<Record, String> EVENT_MANIPULATION = createField(DSL.name("EVENT_MANIPULATION"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, TriggersEventManipulation> EVENT_MANIPULATION = createField(DSL.name("EVENT_MANIPULATION"), SQLDataType.VARCHAR(6).nullable(false).asEnumDataType(nu.studer.sample.information_schema.enums.TriggersEventManipulation.class), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_CATALOG</code>.
+     * The column <code>information_schema.TRIGGERS.EVENT_OBJECT_CATALOG</code>.
      */
-    public final TableField<Record, String> EVENT_OBJECT_CATALOG = createField(DSL.name("EVENT_OBJECT_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> EVENT_OBJECT_CATALOG = createField(DSL.name("EVENT_OBJECT_CATALOG"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_SCHEMA</code>.
+     * The column <code>information_schema.TRIGGERS.EVENT_OBJECT_SCHEMA</code>.
      */
-    public final TableField<Record, String> EVENT_OBJECT_SCHEMA = createField(DSL.name("EVENT_OBJECT_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> EVENT_OBJECT_SCHEMA = createField(DSL.name("EVENT_OBJECT_SCHEMA"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_TABLE</code>.
+     * The column <code>information_schema.TRIGGERS.EVENT_OBJECT_TABLE</code>.
      */
-    public final TableField<Record, String> EVENT_OBJECT_TABLE = createField(DSL.name("EVENT_OBJECT_TABLE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> EVENT_OBJECT_TABLE = createField(DSL.name("EVENT_OBJECT_TABLE"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.ACTION_ORIENTATION</code>.
+     * The column <code>information_schema.TRIGGERS.ACTION_ORDER</code>.
      */
-    public final TableField<Record, String> ACTION_ORIENTATION = createField(DSL.name("ACTION_ORIENTATION"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, UInteger> ACTION_ORDER = createField(DSL.name("ACTION_ORDER"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.ACTION_TIMING</code>.
+     * The column <code>information_schema.TRIGGERS.ACTION_CONDITION</code>.
      */
-    public final TableField<Record, String> ACTION_TIMING = createField(DSL.name("ACTION_TIMING"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, byte[]> ACTION_CONDITION = createField(DSL.name("ACTION_CONDITION"), SQLDataType.BINARY, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.IS_ROLLBACK</code>.
+     * The column <code>information_schema.TRIGGERS.ACTION_STATEMENT</code>.
      */
-    public final TableField<Record, Boolean> IS_ROLLBACK = createField(DSL.name("IS_ROLLBACK"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<Record, String> ACTION_STATEMENT = createField(DSL.name("ACTION_STATEMENT"), SQLDataType.CLOB.nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.JAVA_CLASS</code>.
+     * The column <code>information_schema.TRIGGERS.ACTION_ORIENTATION</code>.
      */
-    public final TableField<Record, String> JAVA_CLASS = createField(DSL.name("JAVA_CLASS"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> ACTION_ORIENTATION = createField(DSL.name("ACTION_ORIENTATION"), SQLDataType.VARCHAR(3).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.QUEUE_SIZE</code>.
+     * The column <code>information_schema.TRIGGERS.ACTION_TIMING</code>.
      */
-    public final TableField<Record, Integer> QUEUE_SIZE = createField(DSL.name("QUEUE_SIZE"), SQLDataType.INTEGER, this, "");
+    public final TableField<Record, TriggersActionTiming> ACTION_TIMING = createField(DSL.name("ACTION_TIMING"), SQLDataType.VARCHAR(6).nullable(false).asEnumDataType(nu.studer.sample.information_schema.enums.TriggersActionTiming.class), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.NO_WAIT</code>.
+     * The column
+     * <code>information_schema.TRIGGERS.ACTION_REFERENCE_OLD_TABLE</code>.
      */
-    public final TableField<Record, Boolean> NO_WAIT = createField(DSL.name("NO_WAIT"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<Record, byte[]> ACTION_REFERENCE_OLD_TABLE = createField(DSL.name("ACTION_REFERENCE_OLD_TABLE"), SQLDataType.BINARY, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.REMARKS</code>.
+     * The column
+     * <code>information_schema.TRIGGERS.ACTION_REFERENCE_NEW_TABLE</code>.
      */
-    public final TableField<Record, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, byte[]> ACTION_REFERENCE_NEW_TABLE = createField(DSL.name("ACTION_REFERENCE_NEW_TABLE"), SQLDataType.BINARY, this, "");
+
+    /**
+     * The column
+     * <code>information_schema.TRIGGERS.ACTION_REFERENCE_OLD_ROW</code>.
+     */
+    public final TableField<Record, String> ACTION_REFERENCE_OLD_ROW = createField(DSL.name("ACTION_REFERENCE_OLD_ROW"), SQLDataType.VARCHAR(3).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column
+     * <code>information_schema.TRIGGERS.ACTION_REFERENCE_NEW_ROW</code>.
+     */
+    public final TableField<Record, String> ACTION_REFERENCE_NEW_ROW = createField(DSL.name("ACTION_REFERENCE_NEW_ROW"), SQLDataType.VARCHAR(3).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>information_schema.TRIGGERS.CREATED</code>.
+     */
+    public final TableField<Record, LocalDateTime> CREATED = createField(DSL.name("CREATED"), SQLDataType.LOCALDATETIME(2).nullable(false), this, "");
+
+    /**
+     * The column <code>information_schema.TRIGGERS.SQL_MODE</code>.
+     */
+    public final TableField<Record, String> SQL_MODE = createField(DSL.name("SQL_MODE"), SQLDataType.VARCHAR(520).nullable(false), this, "");
+
+    /**
+     * The column <code>information_schema.TRIGGERS.DEFINER</code>.
+     */
+    public final TableField<Record, String> DEFINER = createField(DSL.name("DEFINER"), SQLDataType.VARCHAR(288).nullable(false), this, "");
+
+    /**
+     * The column <code>information_schema.TRIGGERS.CHARACTER_SET_CLIENT</code>.
+     */
+    public final TableField<Record, String> CHARACTER_SET_CLIENT = createField(DSL.name("CHARACTER_SET_CLIENT"), SQLDataType.VARCHAR(64).nullable(false), this, "");
+
+    /**
+     * The column <code>information_schema.TRIGGERS.COLLATION_CONNECTION</code>.
+     */
+    public final TableField<Record, String> COLLATION_CONNECTION = createField(DSL.name("COLLATION_CONNECTION"), SQLDataType.VARCHAR(64).nullable(false), this, "");
+
+    /**
+     * The column <code>information_schema.TRIGGERS.DATABASE_COLLATION</code>.
+     */
+    public final TableField<Record, String> DATABASE_COLLATION = createField(DSL.name("DATABASE_COLLATION"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     private Triggers(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private Triggers(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TRIGGERS</code> table
+     * Create an aliased <code>information_schema.TRIGGERS</code> table
      * reference
      */
     public Triggers(String alias) {
@@ -127,7 +176,7 @@ public class Triggers extends TableImpl<Record> {
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TRIGGERS</code> table
+     * Create an aliased <code>information_schema.TRIGGERS</code> table
      * reference
      */
     public Triggers(Name alias) {
@@ -135,7 +184,7 @@ public class Triggers extends TableImpl<Record> {
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.TRIGGERS</code> table reference
+     * Create a <code>information_schema.TRIGGERS</code> table reference
      */
     public Triggers() {
         this(DSL.name("TRIGGERS"), null);

@@ -17,6 +17,7 @@ import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
+import org.jooq.types.UInteger;
 
 
 /**
@@ -29,7 +30,7 @@ public class KeyColumnUsage extends TableImpl<Record> {
 
     /**
      * The reference instance of
-     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE</code>
+     * <code>information_schema.KEY_COLUMN_USAGE</code>
      */
     public static final KeyColumnUsage KEY_COLUMN_USAGE = new KeyColumnUsage();
 
@@ -43,65 +44,83 @@ public class KeyColumnUsage extends TableImpl<Record> {
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_CATALOG</code>.
+     * <code>information_schema.KEY_COLUMN_USAGE.CONSTRAINT_CATALOG</code>.
      */
-    public final TableField<Record, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_SCHEMA</code>.
+     * <code>information_schema.KEY_COLUMN_USAGE.CONSTRAINT_SCHEMA</code>.
      */
-    public final TableField<Record, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_NAME</code>.
+     * <code>information_schema.KEY_COLUMN_USAGE.CONSTRAINT_NAME</code>.
      */
-    public final TableField<Record, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(64), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_CATALOG</code>.
+     * <code>information_schema.KEY_COLUMN_USAGE.TABLE_CATALOG</code>.
      */
-    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_SCHEMA</code>.
+     * The column <code>information_schema.KEY_COLUMN_USAGE.TABLE_SCHEMA</code>.
      */
-    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_NAME</code>.
+     * The column <code>information_schema.KEY_COLUMN_USAGE.TABLE_NAME</code>.
      */
-    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.COLUMN_NAME</code>.
+     * The column <code>information_schema.KEY_COLUMN_USAGE.COLUMN_NAME</code>.
      */
-    public final TableField<Record, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column
-     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.ORDINAL_POSITION</code>.
-     */
-    public final TableField<Record, Integer> ORDINAL_POSITION = createField(DSL.name("ORDINAL_POSITION"), SQLDataType.INTEGER, this, "");
+    public final TableField<Record, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(64), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.POSITION_IN_UNIQUE_CONSTRAINT</code>.
+     * <code>information_schema.KEY_COLUMN_USAGE.ORDINAL_POSITION</code>.
      */
-    public final TableField<Record, Integer> POSITION_IN_UNIQUE_CONSTRAINT = createField(DSL.name("POSITION_IN_UNIQUE_CONSTRAINT"), SQLDataType.INTEGER, this, "");
+    public final TableField<Record, UInteger> ORDINAL_POSITION = createField(DSL.name("ORDINAL_POSITION"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGERUNSIGNED)), this, "");
+
+    /**
+     * The column
+     * <code>information_schema.KEY_COLUMN_USAGE.POSITION_IN_UNIQUE_CONSTRAINT</code>.
+     */
+    public final TableField<Record, UInteger> POSITION_IN_UNIQUE_CONSTRAINT = createField(DSL.name("POSITION_IN_UNIQUE_CONSTRAINT"), SQLDataType.INTEGERUNSIGNED, this, "");
+
+    /**
+     * The column
+     * <code>information_schema.KEY_COLUMN_USAGE.REFERENCED_TABLE_SCHEMA</code>.
+     */
+    public final TableField<Record, String> REFERENCED_TABLE_SCHEMA = createField(DSL.name("REFERENCED_TABLE_SCHEMA"), SQLDataType.VARCHAR(64), this, "");
+
+    /**
+     * The column
+     * <code>information_schema.KEY_COLUMN_USAGE.REFERENCED_TABLE_NAME</code>.
+     */
+    public final TableField<Record, String> REFERENCED_TABLE_NAME = createField(DSL.name("REFERENCED_TABLE_NAME"), SQLDataType.VARCHAR(64), this, "");
+
+    /**
+     * The column
+     * <code>information_schema.KEY_COLUMN_USAGE.REFERENCED_COLUMN_NAME</code>.
+     */
+    public final TableField<Record, String> REFERENCED_COLUMN_NAME = createField(DSL.name("REFERENCED_COLUMN_NAME"), SQLDataType.VARCHAR(64), this, "");
 
     private KeyColumnUsage(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private KeyColumnUsage(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE</code> table
+     * Create an aliased <code>information_schema.KEY_COLUMN_USAGE</code> table
      * reference
      */
     public KeyColumnUsage(String alias) {
@@ -109,7 +128,7 @@ public class KeyColumnUsage extends TableImpl<Record> {
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE</code> table
+     * Create an aliased <code>information_schema.KEY_COLUMN_USAGE</code> table
      * reference
      */
     public KeyColumnUsage(Name alias) {
@@ -117,7 +136,7 @@ public class KeyColumnUsage extends TableImpl<Record> {
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE</code> table reference
+     * Create a <code>information_schema.KEY_COLUMN_USAGE</code> table reference
      */
     public KeyColumnUsage() {
         this(DSL.name("KEY_COLUMN_USAGE"), null);

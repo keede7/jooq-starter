@@ -5,6 +5,7 @@ package nu.studer.sample.information_schema.tables;
 
 
 import nu.studer.sample.information_schema.InformationSchema;
+import nu.studer.sample.information_schema.enums.SchemataDefaultEncryption;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -28,7 +29,7 @@ public class Schemata extends TableImpl<Record> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.SCHEMATA</code>
+     * The reference instance of <code>information_schema.SCHEMATA</code>
      */
     public static final Schemata SCHEMATA = new Schemata();
 
@@ -41,64 +42,47 @@ public class Schemata extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SCHEMATA.CATALOG_NAME</code>.
+     * The column <code>information_schema.SCHEMATA.CATALOG_NAME</code>.
      */
-    public final TableField<Record, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SCHEMATA.SCHEMA_NAME</code>.
+     * The column <code>information_schema.SCHEMATA.SCHEMA_NAME</code>.
      */
-    public final TableField<Record, String> SCHEMA_NAME = createField(DSL.name("SCHEMA_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.SCHEMATA.SCHEMA_OWNER</code>.
-     */
-    public final TableField<Record, String> SCHEMA_OWNER = createField(DSL.name("SCHEMA_OWNER"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> SCHEMA_NAME = createField(DSL.name("SCHEMA_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_CATALOG</code>.
+     * <code>information_schema.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
      */
-    public final TableField<Record, String> DEFAULT_CHARACTER_SET_CATALOG = createField(DSL.name("DEFAULT_CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> DEFAULT_CHARACTER_SET_NAME = createField(DSL.name("DEFAULT_CHARACTER_SET_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_SCHEMA</code>.
+     * <code>information_schema.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
      */
-    public final TableField<Record, String> DEFAULT_CHARACTER_SET_SCHEMA = createField(DSL.name("DEFAULT_CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> DEFAULT_COLLATION_NAME = createField(DSL.name("DEFAULT_COLLATION_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column
-     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
+     * The column <code>information_schema.SCHEMATA.SQL_PATH</code>.
      */
-    public final TableField<Record, String> DEFAULT_CHARACTER_SET_NAME = createField(DSL.name("DEFAULT_CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, byte[]> SQL_PATH = createField(DSL.name("SQL_PATH"), SQLDataType.BINARY, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SCHEMATA.SQL_PATH</code>.
+     * The column <code>information_schema.SCHEMATA.DEFAULT_ENCRYPTION</code>.
      */
-    public final TableField<Record, String> SQL_PATH = createField(DSL.name("SQL_PATH"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column
-     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
-     */
-    public final TableField<Record, String> DEFAULT_COLLATION_NAME = createField(DSL.name("DEFAULT_COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.SCHEMATA.REMARKS</code>.
-     */
-    public final TableField<Record, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, SchemataDefaultEncryption> DEFAULT_ENCRYPTION = createField(DSL.name("DEFAULT_ENCRYPTION"), SQLDataType.VARCHAR(3).nullable(false).asEnumDataType(nu.studer.sample.information_schema.enums.SchemataDefaultEncryption.class), this, "");
 
     private Schemata(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private Schemata(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SCHEMATA</code> table
+     * Create an aliased <code>information_schema.SCHEMATA</code> table
      * reference
      */
     public Schemata(String alias) {
@@ -106,7 +90,7 @@ public class Schemata extends TableImpl<Record> {
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SCHEMATA</code> table
+     * Create an aliased <code>information_schema.SCHEMATA</code> table
      * reference
      */
     public Schemata(Name alias) {
@@ -114,7 +98,7 @@ public class Schemata extends TableImpl<Record> {
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.SCHEMATA</code> table reference
+     * Create a <code>information_schema.SCHEMATA</code> table reference
      */
     public Schemata() {
         this(DSL.name("SCHEMATA"), null);

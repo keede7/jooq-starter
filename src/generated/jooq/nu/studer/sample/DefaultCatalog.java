@@ -8,6 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import nu.studer.sample.information_schema.InformationSchema;
+import nu.studer.sample.jooqdb.Jooqdb;
+import nu.studer.sample.mysql.Mysql;
+import nu.studer.sample.performance_schema.PerformanceSchema;
+import nu.studer.sample.sys.Sys;
 
 import org.jooq.Constants;
 import org.jooq.Schema;
@@ -28,9 +32,29 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>INFORMATION_SCHEMA</code>.
+     * The schema <code>information_schema</code>.
      */
     public final InformationSchema INFORMATION_SCHEMA = InformationSchema.INFORMATION_SCHEMA;
+
+    /**
+     * The schema <code>jooqdb</code>.
+     */
+    public final Jooqdb JOOQDB = Jooqdb.JOOQDB;
+
+    /**
+     * The schema <code>mysql</code>.
+     */
+    public final Mysql MYSQL = Mysql.MYSQL;
+
+    /**
+     * The schema <code>performance_schema</code>.
+     */
+    public final PerformanceSchema PERFORMANCE_SCHEMA = PerformanceSchema.PERFORMANCE_SCHEMA;
+
+    /**
+     * The schema <code>sys</code>.
+     */
+    public final Sys SYS = Sys.SYS;
 
     /**
      * No further instances allowed
@@ -42,7 +66,11 @@ public class DefaultCatalog extends CatalogImpl {
     @Override
     public final List<Schema> getSchemas() {
         return Arrays.asList(
-            InformationSchema.INFORMATION_SCHEMA
+            InformationSchema.INFORMATION_SCHEMA,
+            Jooqdb.JOOQDB,
+            Mysql.MYSQL,
+            PerformanceSchema.PERFORMANCE_SCHEMA,
+            Sys.SYS
         );
     }
 

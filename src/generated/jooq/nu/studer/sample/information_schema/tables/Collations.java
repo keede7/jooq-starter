@@ -5,6 +5,7 @@ package nu.studer.sample.information_schema.tables;
 
 
 import nu.studer.sample.information_schema.InformationSchema;
+import nu.studer.sample.information_schema.enums.CollationsPadAttribute;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -17,6 +18,8 @@ import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
+import org.jooq.types.UInteger;
+import org.jooq.types.ULong;
 
 
 /**
@@ -28,7 +31,7 @@ public class Collations extends TableImpl<Record> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.COLLATIONS</code>
+     * The reference instance of <code>information_schema.COLLATIONS</code>
      */
     public static final Collations COLLATIONS = new Collations();
 
@@ -41,40 +44,50 @@ public class Collations extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.COLLATIONS.COLLATION_CATALOG</code>.
+     * The column <code>information_schema.COLLATIONS.COLLATION_NAME</code>.
      */
-    public final TableField<Record, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.COLLATIONS.COLLATION_SCHEMA</code>.
+     * The column <code>information_schema.COLLATIONS.CHARACTER_SET_NAME</code>.
      */
-    public final TableField<Record, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.COLLATIONS.COLLATION_NAME</code>.
+     * The column <code>information_schema.COLLATIONS.ID</code>.
      */
-    public final TableField<Record, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, ULong> ID = createField(DSL.name("ID"), SQLDataType.BIGINTUNSIGNED.nullable(false).defaultValue(DSL.inline("0", SQLDataType.BIGINTUNSIGNED)), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.COLLATIONS.PAD_ATTRIBUTE</code>.
+     * The column <code>information_schema.COLLATIONS.IS_DEFAULT</code>.
      */
-    public final TableField<Record, String> PAD_ATTRIBUTE = createField(DSL.name("PAD_ATTRIBUTE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> IS_DEFAULT = createField(DSL.name("IS_DEFAULT"), SQLDataType.VARCHAR(3).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.COLLATIONS.LANGUAGE_TAG</code>.
+     * The column <code>information_schema.COLLATIONS.IS_COMPILED</code>.
      */
-    public final TableField<Record, String> LANGUAGE_TAG = createField(DSL.name("LANGUAGE_TAG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> IS_COMPILED = createField(DSL.name("IS_COMPILED"), SQLDataType.VARCHAR(3).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>information_schema.COLLATIONS.SORTLEN</code>.
+     */
+    public final TableField<Record, UInteger> SORTLEN = createField(DSL.name("SORTLEN"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+
+    /**
+     * The column <code>information_schema.COLLATIONS.PAD_ATTRIBUTE</code>.
+     */
+    public final TableField<Record, CollationsPadAttribute> PAD_ATTRIBUTE = createField(DSL.name("PAD_ATTRIBUTE"), SQLDataType.VARCHAR(9).nullable(false).asEnumDataType(nu.studer.sample.information_schema.enums.CollationsPadAttribute.class), this, "");
 
     private Collations(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private Collations(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.COLLATIONS</code> table
+     * Create an aliased <code>information_schema.COLLATIONS</code> table
      * reference
      */
     public Collations(String alias) {
@@ -82,7 +95,7 @@ public class Collations extends TableImpl<Record> {
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.COLLATIONS</code> table
+     * Create an aliased <code>information_schema.COLLATIONS</code> table
      * reference
      */
     public Collations(Name alias) {
@@ -90,7 +103,7 @@ public class Collations extends TableImpl<Record> {
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.COLLATIONS</code> table reference
+     * Create a <code>information_schema.COLLATIONS</code> table reference
      */
     public Collations() {
         this(DSL.name("COLLATIONS"), null);

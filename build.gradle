@@ -20,6 +20,7 @@ configurations {
 
 ext {
     set('jooqVersion', '3.18.4')
+    set('mysqlVersion', '8.0.29')
 }
 
 repositories {
@@ -36,6 +37,7 @@ dependencies {
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     runtimeOnly 'com.h2database:h2'
+    implementation "mysql:mysql-connector-java:$mysqlVersion"
 
     // JOOQ
     implementation "org.jooq:jooq:$jooqVersion"
@@ -44,6 +46,7 @@ dependencies {
 
     jooqGenerator "jakarta.xml.bind:jakarta.xml.bind-api:3.0.1"
     jooqGenerator 'com.h2database:h2'
+    jooqGenerator "mysql:mysql-connector-java:$mysqlVersion"
 }
 
 // https://github.com/etiennestuder/gradle-jooq-plugin/blob/main/example/use_groovy_dsl/build.gradle
@@ -59,11 +62,13 @@ jooq {
                 // 그렇기 때문에 H2로 설정을 하게 되면 스크립트를 읽어서라도 코드를 생성하게 만들어야 한다.
                 // 현재 설정으로는 파일을 찾지 못하고 있어서 진행이 불가능하다.
                 jdbc {
-                    driver = 'org.h2.Driver'
+//                    driver = 'org.h2.Driver'
 //                    url = 'jdbc:h2:~/test;AUTO_SERVER=TRUE;INIT=RUNSCRIPT FROM \'classpath:schema.sql\''
-                    url = 'jdbc:h2:~/test;AUTO_SERVER=TRUE;'
-                    user = 'sa'
-                    password = ''
+//                    url = 'jdbc:h2:~/test;AUTO_SERVER=TRUE;'
+                    driver = 'com.mysql.cj.jdbc.Driver'
+                    url = 'jdbc:mysql://localhost:3306/jooqdb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true'
+                    user = 'root'
+                    password = 'root'
                     properties {
                         property {
                             key = 'PAGE_SIZE'
@@ -74,19 +79,12 @@ jooq {
                 generator {
                     name = 'org.jooq.codegen.DefaultGenerator'
                     database {
-                        name = 'org.jooq.meta.h2.H2Database'
-//                        forcedTypes {
-//                            forcedType {
-//                                name = 'varchar'
-//                                includeExpression = '.*'
-//                                includeTypes = 'JSONB?'
-//                            }
-//                            forcedType {
-//                                name = 'varchar'
-//                                includeExpression = '.*'
-//                                includeTypes = 'INET'
-//                            }
-//                        }
+//                        name = 'org.jooq.meta.h2.H2Database'
+                        name = 'org.jooq.meta.mysql.MySQLDatabase'
+//                        inputSchema = 'portal'
+//
+//                        includes = '.*' // 정규표현식
+//                        excludes = 'test_.* | temp_.*'
                     }
                     generate {
                         deprecated = false

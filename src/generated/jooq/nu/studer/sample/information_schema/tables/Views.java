@@ -5,6 +5,8 @@ package nu.studer.sample.information_schema.tables;
 
 
 import nu.studer.sample.information_schema.InformationSchema;
+import nu.studer.sample.information_schema.enums.ViewsCheckOption;
+import nu.studer.sample.information_schema.enums.ViewsIsUpdatable;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -28,7 +30,7 @@ public class Views extends TableImpl<Record> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.VIEWS</code>
+     * The reference instance of <code>information_schema.VIEWS</code>
      */
     public static final Views VIEWS = new Views();
 
@@ -41,90 +43,79 @@ public class Views extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.TABLE_CATALOG</code>.
+     * The column <code>information_schema.VIEWS.TABLE_CATALOG</code>.
      */
-    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.TABLE_SCHEMA</code>.
+     * The column <code>information_schema.VIEWS.TABLE_SCHEMA</code>.
      */
-    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.TABLE_NAME</code>.
+     * The column <code>information_schema.VIEWS.TABLE_NAME</code>.
      */
-    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.VIEW_DEFINITION</code>.
+     * The column <code>information_schema.VIEWS.VIEW_DEFINITION</code>.
      */
-    public final TableField<Record, String> VIEW_DEFINITION = createField(DSL.name("VIEW_DEFINITION"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> VIEW_DEFINITION = createField(DSL.name("VIEW_DEFINITION"), SQLDataType.CLOB, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.CHECK_OPTION</code>.
+     * The column <code>information_schema.VIEWS.CHECK_OPTION</code>.
      */
-    public final TableField<Record, String> CHECK_OPTION = createField(DSL.name("CHECK_OPTION"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, ViewsCheckOption> CHECK_OPTION = createField(DSL.name("CHECK_OPTION"), SQLDataType.VARCHAR(8).asEnumDataType(nu.studer.sample.information_schema.enums.ViewsCheckOption.class), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.IS_UPDATABLE</code>.
+     * The column <code>information_schema.VIEWS.IS_UPDATABLE</code>.
      */
-    public final TableField<Record, String> IS_UPDATABLE = createField(DSL.name("IS_UPDATABLE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, ViewsIsUpdatable> IS_UPDATABLE = createField(DSL.name("IS_UPDATABLE"), SQLDataType.VARCHAR(3).asEnumDataType(nu.studer.sample.information_schema.enums.ViewsIsUpdatable.class), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.INSERTABLE_INTO</code>.
+     * The column <code>information_schema.VIEWS.DEFINER</code>.
      */
-    public final TableField<Record, String> INSERTABLE_INTO = createField(DSL.name("INSERTABLE_INTO"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> DEFINER = createField(DSL.name("DEFINER"), SQLDataType.VARCHAR(288), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_UPDATABLE</code>.
+     * The column <code>information_schema.VIEWS.SECURITY_TYPE</code>.
      */
-    public final TableField<Record, String> IS_TRIGGER_UPDATABLE = createField(DSL.name("IS_TRIGGER_UPDATABLE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> SECURITY_TYPE = createField(DSL.name("SECURITY_TYPE"), SQLDataType.VARCHAR(7), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_DELETABLE</code>.
+     * The column <code>information_schema.VIEWS.CHARACTER_SET_CLIENT</code>.
      */
-    public final TableField<Record, String> IS_TRIGGER_DELETABLE = createField(DSL.name("IS_TRIGGER_DELETABLE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> CHARACTER_SET_CLIENT = createField(DSL.name("CHARACTER_SET_CLIENT"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     /**
-     * The column
-     * <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_INSERTABLE_INTO</code>.
+     * The column <code>information_schema.VIEWS.COLLATION_CONNECTION</code>.
      */
-    public final TableField<Record, String> IS_TRIGGER_INSERTABLE_INTO = createField(DSL.name("IS_TRIGGER_INSERTABLE_INTO"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.STATUS</code>.
-     */
-    public final TableField<Record, String> STATUS = createField(DSL.name("STATUS"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.VIEWS.REMARKS</code>.
-     */
-    public final TableField<Record, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> COLLATION_CONNECTION = createField(DSL.name("COLLATION_CONNECTION"), SQLDataType.VARCHAR(64).nullable(false), this, "");
 
     private Views(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private Views(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.VIEWS</code> table reference
+     * Create an aliased <code>information_schema.VIEWS</code> table reference
      */
     public Views(String alias) {
         this(DSL.name(alias), VIEWS);
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.VIEWS</code> table reference
+     * Create an aliased <code>information_schema.VIEWS</code> table reference
      */
     public Views(Name alias) {
         this(alias, VIEWS);
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.VIEWS</code> table reference
+     * Create a <code>information_schema.VIEWS</code> table reference
      */
     public Views() {
         this(DSL.name("VIEWS"), null);

@@ -29,7 +29,7 @@ public class TablePrivileges extends TableImpl<Record> {
 
     /**
      * The reference instance of
-     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code>
+     * <code>information_schema.TABLE_PRIVILEGES</code>
      */
     public static final TablePrivileges TABLE_PRIVILEGES = new TablePrivileges();
 
@@ -42,58 +42,47 @@ public class TablePrivileges extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTOR</code>.
+     * The column <code>information_schema.TABLE_PRIVILEGES.GRANTEE</code>.
      */
-    public final TableField<Record, String> GRANTOR = createField(DSL.name("GRANTOR"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTEE</code>.
-     */
-    public final TableField<Record, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(97).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
+     * <code>information_schema.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
      */
-    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(170).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_SCHEMA</code>.
+     * The column <code>information_schema.TABLE_PRIVILEGES.TABLE_SCHEMA</code>.
      */
-    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(21).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_NAME</code>.
+     * The column <code>information_schema.TABLE_PRIVILEGES.TABLE_NAME</code>.
      */
-    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column
-     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
-     */
-    public final TableField<Record, String> PRIVILEGE_TYPE = createField(DSL.name("PRIVILEGE_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.IS_GRANTABLE</code>.
-     */
-    public final TableField<Record, String> IS_GRANTABLE = createField(DSL.name("IS_GRANTABLE"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(21).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column
-     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.WITH_HIERARCHY</code>.
+     * <code>information_schema.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
      */
-    public final TableField<Record, String> WITH_HIERARCHY = createField(DSL.name("WITH_HIERARCHY"), SQLDataType.VARCHAR(1000000000), this, "");
+    public final TableField<Record, String> PRIVILEGE_TYPE = createField(DSL.name("PRIVILEGE_TYPE"), SQLDataType.VARCHAR(21).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>information_schema.TABLE_PRIVILEGES.IS_GRANTABLE</code>.
+     */
+    public final TableField<Record, String> IS_GRANTABLE = createField(DSL.name("IS_GRANTABLE"), SQLDataType.VARCHAR(1).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
 
     private TablePrivileges(Name alias, Table<Record> aliased) {
         this(alias, aliased, null);
     }
 
     private TablePrivileges(Name alias, Table<Record> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table
+     * Create an aliased <code>information_schema.TABLE_PRIVILEGES</code> table
      * reference
      */
     public TablePrivileges(String alias) {
@@ -101,7 +90,7 @@ public class TablePrivileges extends TableImpl<Record> {
     }
 
     /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table
+     * Create an aliased <code>information_schema.TABLE_PRIVILEGES</code> table
      * reference
      */
     public TablePrivileges(Name alias) {
@@ -109,7 +98,7 @@ public class TablePrivileges extends TableImpl<Record> {
     }
 
     /**
-     * Create a <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table reference
+     * Create a <code>information_schema.TABLE_PRIVILEGES</code> table reference
      */
     public TablePrivileges() {
         this(DSL.name("TABLE_PRIVILEGES"), null);

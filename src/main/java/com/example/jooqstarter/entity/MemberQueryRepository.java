@@ -1,5 +1,6 @@
 package com.example.jooqstarter.entity;
 
+import nu.studer.sample.jooqdb.tables.MemberT;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,11 @@ public class MemberQueryRepository {
     public List<Member> getList1() {
         return dsl.select(DSL.field("id"), DSL.field("name"))
                 .from(DSL.table("user_t"))
+                .fetchInto(Member.class);
+    }
+
+    public List<Member> getList2() {
+        return dsl.selectFrom(MemberT.MEMBER_T)
                 .fetchInto(Member.class);
     }
 
