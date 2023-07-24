@@ -36,8 +36,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
-    runtimeOnly 'com.h2database:h2'
-    implementation "mysql:mysql-connector-java:$mysqlVersion"
+    runtimeOnly "mysql:mysql-connector-java:$mysqlVersion"
 
     // JOOQ
     implementation "org.jooq:jooq:$jooqVersion"
@@ -45,14 +44,13 @@ dependencies {
     runtimeOnly "org.jooq:jooq-codegen:$jooqVersion"
 
     jooqGenerator "jakarta.xml.bind:jakarta.xml.bind-api:3.0.1"
-    jooqGenerator 'com.h2database:h2'
     jooqGenerator "mysql:mysql-connector-java:$mysqlVersion"
 }
 
 // https://github.com/etiennestuder/gradle-jooq-plugin/blob/main/example/use_groovy_dsl/build.gradle
 jooq {
     version = '3.18.4'
-//    edition = JooqEdition.OSS
+//    edition = nu.studer.gradle.jooq.JooqEdition.OSS  // the default (can be omitted)
 
     configurations {
         main {
@@ -62,9 +60,6 @@ jooq {
                 // 그렇기 때문에 H2로 설정을 하게 되면 스크립트를 읽어서라도 코드를 생성하게 만들어야 한다.
                 // 현재 설정으로는 파일을 찾지 못하고 있어서 진행이 불가능하다.
                 jdbc {
-//                    driver = 'org.h2.Driver'
-//                    url = 'jdbc:h2:~/test;AUTO_SERVER=TRUE;INIT=RUNSCRIPT FROM \'classpath:schema.sql\''
-//                    url = 'jdbc:h2:~/test;AUTO_SERVER=TRUE;'
                     driver = 'com.mysql.cj.jdbc.Driver'
                     url = 'jdbc:mysql://localhost:3306/jooqdb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true'
                     user = 'root'
@@ -79,12 +74,7 @@ jooq {
                 generator {
                     name = 'org.jooq.codegen.DefaultGenerator'
                     database {
-//                        name = 'org.jooq.meta.h2.H2Database'
                         name = 'org.jooq.meta.mysql.MySQLDatabase'
-//                        inputSchema = 'portal'
-//
-//                        includes = '.*' // 정규표현식
-//                        excludes = 'test_.* | temp_.*'
                     }
                     generate {
                         deprecated = false
@@ -94,7 +84,10 @@ jooq {
                     }
                     target {
                         packageName = 'nu.studer.sample'
-                        directory = 'src/generated/jooq'
+                        // 해당 이름을 가진 디렉토리 하위로 packageName을 가진 폴더를 생성하고
+                        // 그 폴더 안에 DB관련 폴더들이 추가된다.
+//                        directory = 'src/generated/jooq'
+                        directory = 'build/generated-src/jooq/main'  // default (can be omitted)
                     }
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                 }

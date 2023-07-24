@@ -18,7 +18,7 @@ public class MemberQueryRepository {
 
     public List<Member> getList1() {
         return dsl.select(DSL.field("id"), DSL.field("name"))
-                .from(DSL.table("user_t"))
+                .from(DSL.table("member_t"))
                 .fetchInto(Member.class);
     }
 

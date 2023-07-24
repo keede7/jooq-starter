@@ -1,15 +1,15 @@
 
 spring:
-#  sql:
-#    init:
-#      mode: always
-#      schema-locations: schema.sql
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/schema.sql
   datasource:
-    hikari:
-      jdbc-url: jdbc:h2:~/test;
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+      #       mysql 8.x.x 부터 allowPublicKeyRetrieval 설정을 해줘야 한다.
+    url: jdbc:mysql://localhost:3306/jooqdb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
 
   h2:
     console:
@@ -18,8 +18,9 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     generate-ddl: true
     properties:
       hibernate:
         format_sql: true
+    open-in-view: false
