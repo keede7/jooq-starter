@@ -3,9 +3,7 @@ package com.example.jooqstarter.entity;
 import nu.studer.sample.jooqdb.tables.MemberT;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,15 +26,11 @@ public class MemberQueryRepository {
     }
 
     public List<Member> getList2(String ss) {
+        System.out.println("이벤트를 구독하기 전 입니다.");
         applicationEventPublisher.publishEvent(ss);
+        System.out.println("이벤트를 구독했습니다.");
         return dsl.selectFrom(MemberT.MEMBER_T)
                 .fetchInto(Member.class);
-    }
-
-    @EventListener
-    public void eventTest(String test) {
-        System.out.println("test = " + test);
-
     }
 
 }

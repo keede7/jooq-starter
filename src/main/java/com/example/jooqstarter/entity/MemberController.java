@@ -19,7 +19,7 @@ public class MemberController {
 
     @GetMapping("/test2")
     public void test2() {
-        System.out.println("memberQueryRepository.getList2(); = " + memberQueryRepository.getList2("test!!!"));
+        memberQueryRepository.getList2("test@@@");
     }
 
 }
