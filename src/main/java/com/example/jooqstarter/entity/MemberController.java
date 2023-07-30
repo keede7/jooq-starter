@@ -1,7 +1,9 @@
 package com.example.jooqstarter.entity;
 
+import com.example.jooqstarter.dto.ModifyNameRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,4 +24,8 @@ public class MemberController {
         memberQueryRepository.getList2("test@@@");
     }
 
+    @GetMapping("/update")
+    public void test3(@ModelAttribute ModifyNameRequest modifyNameRequest) {
+        memberQueryRepository.modifyName(modifyNameRequest);
+    }
 }

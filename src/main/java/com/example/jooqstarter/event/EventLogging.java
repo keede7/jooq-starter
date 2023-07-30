@@ -1,8 +1,10 @@
 package com.example.jooqstarter.event;
 
+import com.example.jooqstarter.dto.ModifyNameRequest;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
 public class EventLogging {
@@ -17,4 +19,11 @@ public class EventLogging {
         System.out.println("test = " + test);
     }
 
+    @Async
+//    @TransactionalEventListener(ModifyNameRequest.class)
+    @EventListener(ModifyNameRequest.class)
+    public void modifyName(ModifyNameRequest modifyNameRequest) {
+        System.out.println("modifyNameRequest = " + modifyNameRequest);
+
+    }
 }
